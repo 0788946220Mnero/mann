@@ -1,0 +1,51 @@
+name: diyar_admin
+description: ديار الأنباط — تطبيق الإدارة
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.5.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # الحالة والتنقّل
+  provider: ^6.1.2
+  # go_router غير مستخدم حالياً (التنقّل يتم عبر Navigator المدمج).
+  # مُعطَّل لتفادي تعارض إصدارات عند البناء؛ أزل التعليق عند الحاجة إليه.
+  # go_router: '>=14.2.0 <17.0.0'
+
+  # الشبكة والتخزين
+  http: ^1.2.2
+  flutter_secure_storage: '>=9.2.2 <10.0.0'
+  shared_preferences: ^2.3.2
+
+  # الوقت الحقيقي (جاهز للربط عند توفّر WebSocket في الخادم)
+  web_socket_channel: ^3.0.1
+
+  # الإشعارات والصوت
+  flutter_local_notifications: '>=17.2.3 <20.0.0'
+  audioplayers: '>=6.1.0 <7.0.0'
+
+  # الخرائط (Leaflet المكافئ في Flutter — بلا أي API Key، نفس مصدر بيانات الويب)
+  flutter_map: '>=7.0.0 <9.0.0'
+  latlong2: ^0.9.1
+  # فتح الموقع في تطبيق الخرائط على الهاتف
+  url_launcher: ^6.3.0
+
+  # واجهة
+  intl: ^0.20.2
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: '>=4.0.0 <7.0.0'
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/sounds/

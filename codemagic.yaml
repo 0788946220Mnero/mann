@@ -1,0 +1,71 @@
+# إعداد Codemagic — ديار الأنباط: تطبيق الإدارة
+#
+# متطلّب أساسي: يجب أن يحتوي المستودع على مجلدَي ios/ و android/ كاملين.
+# إن لم يوجدا، شغّل على جهازك:  ./setup_platforms.sh  ثم ادفع النتيجة.
+
+workflows:
+  android-workflow:
+    name: Android Build
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      java: 17
+    scripts:
+      - name: التحقق من وجود ملفات المنصة
+        script: |
+          if [ ! -d "android" ]; then
+            echo "✗ مجلد android غير موجود في المستودع."
+            echo "  شغّل على جهازك: flutter create --platforms=android,ios . ثم ادفع النتيجة."
+            exit 1
+          fi
+      - name: حل الاعتماديات
+        script: |
+          flutter clean
+          flutter pub get
+      - name: تحليل الكود
+        script: flutter analyze --no-fatal-infos --no-fatal-warnings || true
+      - name: بناء APK و AAB
+        script: |
+          flutter build apk --release
+          flutter build appbundle --release
+    artifacts:
+      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/bundle/release/*.aab
+
+  ios-workflow:
+    name: iOS Build
+    max_build_duration: 90
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: التحقق من ملفات iOS
+        script: |
+          MISSING=0
+          for f in ios/Runner.xcodeproj/project.pbxproj ios/Runner/Info.plist ios/Podfile; do
+            if [ ! -f "$f" ]; then echo "✗ ناقص: $f"; MISSING=1; fi
+          done
+          if [ "$MISSING" = "1" ]; then
+            echo ""
+            echo "مجلد iOS ناقص أو غير موجود في المستودع."
+            echo "الحل: شغّل على جهازك (macOS أو أي نظام):"
+            echo "  flutter create --platforms=android,ios ."
+            echo "  git add ios android && git commit -m 'إضافة ملفات المنصات' && git push"
+            exit 1
+          fi
+          echo "✓ ملفات iOS موجودة"
+      - name: حل الاعتماديات
+        script: |
+          flutter clean
+          flutter pub get
+      - name: تثبيت CocoaPods
+        script: |
+          cd ios
+          pod install --repo-update
+      - name: بناء iOS (بلا توقيع)
+        script: flutter build ios --release --no-codesign
+    artifacts:
+      - build/ios/iphoneos/*.app

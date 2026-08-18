@@ -1,0 +1,39 @@
+# Dart / Flutter
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+*.iml
+.idea/
+.vscode/
+
+# ملاحظة مهمة لبناء Codemagic:
+# لا تستثنِ مجلدَي ios/ و android/ — يجب رفعهما كاملين إلى المستودع،
+# وإلا يفشل البناء بخطأ "Did not find xcodeproj".
+
+# iOS — نستثني فقط الملفات المُولَّدة محلياً
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/App.framework
+ios/Flutter/ephemeral/
+**/DerivedData/
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# ملاحظة: ios/Podfile.lock يُنصح برفعه لتثبيت إصدارات CocoaPods
+
+# Android — نستثني فقط الملفات المُولَّدة محلياً
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/.idea/
+**/gradle-wrapper.jar.lock
+
+# نظام التشغيل
+.DS_Store
+Thumbs.db
