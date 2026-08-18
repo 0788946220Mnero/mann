@@ -10,6 +10,7 @@ android {
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
+      iscorelibrarydesugringenable = true 
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -19,7 +20,8 @@ android {
         applicationId = "com.diyaralanbat.diyar_admin"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
-        minSdk = flutter.minSdkVersion
+        minSdk = 21
+        multidexenabled = true 
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -42,4 +44,8 @@ kotlin {
 
 flutter {
     source = "../.."
+}
+dependencies {
+corelibrarydesugring("com.android.tools:desugar_jdk_libs:2.1.4")
+
 }
