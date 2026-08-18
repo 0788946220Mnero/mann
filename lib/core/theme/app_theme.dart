@@ -39,7 +39,7 @@ class AppTheme {
           fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textMain, fontFamily: 'Tajawal',
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(

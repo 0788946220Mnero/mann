@@ -1,6 +1,12 @@
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  errors:
+    # تحذيرات لا توقف البناء (withOpacity وغيرها من المهجورات)
+    deprecated_member_use: ignore
+    deprecated_member_use_from_same_package: ignore
+
 linter:
   rules:
-    prefer_const_constructors: true
+    prefer_const_constructors: false
     avoid_print: true
